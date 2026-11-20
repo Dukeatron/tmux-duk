@@ -76,7 +76,7 @@ Each session is persistent and will survive accidental disconnection
 (such as
 .Xr ssh 1
 connection timeout) or intentional detaching (with the
-.Ql C\-b d
+.Ql C\-Space d
 key strokes).
 .Nm
 may be reattached using:
@@ -138,11 +138,14 @@ Specify an alternative configuration file.
 By default,
 .Nm
 loads the system configuration file from
-.Pa @SYSCONFDIR@/tmux.conf ,
+.Pa @SYSCONFDIR@/tmux\-duk.conf ,
 if present, then looks for a user configuration file at
-.Pa \[ti]/.tmux.conf
+.Pa $XDG_CONFIG_HOME/tmux\-duk/tmux.conf
 or
-.Pa $XDG_CONFIG_HOME/tmux/tmux.conf .
+.Pa \[ti]/.config/tmux\-duk/tmux.conf .
+The stock
+.Pa \[ti]/.tmux.conf
+is not read, so an existing tmux configuration does not change this flavour.
 .Pp
 The configuration file is a set of
 .Nm
@@ -174,13 +177,13 @@ servers to be run.
 Unlike
 .Fl S
 a full path is not necessary: the sockets are all created in a directory
-.Pa tmux\-UID
+.Pa tmux\-duk\-UID
 under the directory given by
 .Ev TMUX_TMPDIR
 or in
 .Pa /tmp .
 The
-.Pa tmux\-UID
+.Pa tmux\-duk\-UID
 directory is created by
 .Nm
 and must not be world readable, writable or executable.
@@ -265,14 +268,53 @@ is assumed, which defaults to
 .Nm
 may be controlled from an attached client by using a key combination of a
 prefix key,
-.Ql C\-b
-(Ctrl\-b) by default, followed by a command key.
+.Ql C\-Space
+(Ctrl\-Space) by default, followed by a command key.
 .Pp
-The default command key bindings are:
+This build (tmux\-duk) adds simpler, vi\-style bindings which take
+precedence over the stock ones listed further below:
 .Pp
 .Bl -tag -width "XXXXXXXXXX" -offset indent -compact
-.It C\-b
-Send the prefix key (C\-b) through to the application.
+.It ?
+Show a cheatsheet of the essential keys for 4.5 seconds (any key closes it).
+.It /
+List all key bindings.
+.It h j k l
+Select the pane to the left, below, above or right.
+.It H J K L
+Resize the pane by 5 cells (repeatable).
+.It | \e
+Split the window side by side, keeping the current directory.
+.It \- _
+Split the window top and bottom, keeping the current directory.
+.It c
+Create a new window in the current directory.
+.It Tab , BTab
+Select the next or previous window.
+.It X
+Kill the current window.
+.It v
+Enter copy mode
+.Ql ( v
+begins a selection,
+.Ql y
+copies it,
+.Ql C\-v
+toggles rectangle selection).
+.It r
+Reload
+.Pa \[ti]/.config/tmux\-duk/tmux.conf .
+.It M\-h M\-j M\-k M\-l
+(no prefix) Select a pane.
+.It M\-1 to M\-9
+(no prefix) Select a window.
+.El
+.Pp
+The stock command key bindings are:
+.Pp
+.Bl -tag -width "XXXXXXXXXX" -offset indent -compact
+.It C\-Space
+Send the prefix key (C\-Space) through to the application.
 .It C\-o
 Rotate the panes in the current window forwards.
 .It C\-z
@@ -4503,7 +4545,7 @@ is bound to
 in the
 .Em prefix
 table, so
-.Ql C\-b c
+.Ql C\-Space c
 creates a new window).
 The
 .Em root
@@ -9508,13 +9550,12 @@ options.
 .El
 .Sh FILES
 .Bl -tag -width "@SYSCONFDIR@/tmux.confXXX" -compact
-.It Pa \[ti]/.tmux.conf
-.It Pa $XDG_CONFIG_HOME/tmux/tmux.conf
-.It Pa \[ti]/.config/tmux/tmux.conf
+.It Pa $XDG_CONFIG_HOME/tmux\-duk/tmux.conf
+.It Pa \[ti]/.config/tmux\-duk/tmux.conf
 Default
 .Nm
 configuration file.
-.It Pa @SYSCONFDIR@/tmux.conf
+.It Pa @SYSCONFDIR@/tmux\-duk.conf
 System-wide configuration file.
 .El
 .Sh EXAMPLES

@@ -485,7 +485,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "focus-events",
 	  .type = OPTIONS_TABLE_FLAG,
 	  .scope = OPTIONS_TABLE_SERVER,
-	  .default_num = 0,
+	  .default_num = 1,
 	  .text = "Whether to send focus events to applications."
 	},
 
@@ -553,7 +553,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .flags = OPTIONS_TABLE_IS_STYLE,
-	  .default_str = "bg=themedarkgrey,fg=themewhite",
+	  .default_str = "bg=#1e1e2e,fg=#cdd6f4",
 	  .separator = ",",
 	  .text = "Default style of menu."
 	},
@@ -562,7 +562,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .flags = OPTIONS_TABLE_IS_STYLE,
-	  .default_str = "bg=themeyellow,fg=themeblack",
+	  .default_str = "bg=#f9e2af,fg=#11111b",
 	  .separator = ",",
 	  .text = "Default style of selected menu item."
 	},
@@ -570,7 +570,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "menu-border-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "bg=themedarkgrey,fg=themelightgrey",
+	  .default_str = "bg=#1e1e2e,fg=#cba6f7",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Default style of menu borders."
@@ -580,7 +580,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_CHOICE,
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .choices = options_table_menu_border_lines_list,
-	  .default_num = BOX_LINES_SINGLE,
+	  .default_num = BOX_LINES_ROUNDED,
 	  .text = "Type of characters used to draw menu border lines. Some of "
 		  "these are only supported on terminals with UTF-8 support."
 	},
@@ -638,6 +638,7 @@ const struct options_table_entry options_table[] = {
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_ARRAY,
 	  .default_str = "xterm*:clipboard:ccolour:cstyle:focus:title,"
+			 "*256col*:RGB,"
 			 "screen*:title,"
 			 "rxvt*:ignorefkeys",
 	  .separator = ",",
@@ -649,7 +650,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_CHOICE,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .choices = options_table_theme_list,
-	  .default_num = 0,
+	  .default_num = 3,
 	  .text = "Whether tmux should detect the terminal theme, use terminal "
 		  "ANSI colours, or force the light or dark theme."
 	},
@@ -658,7 +659,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},gray5,black}",
+	  .default_str = "##11111b",
 	  .text = "Dark theme colour for black."
 	},
 
@@ -666,7 +667,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},gray90,white}",
+	  .default_str = "##cdd6f4",
 	  .text = "Dark theme colour for white."
 	},
 
@@ -674,7 +675,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},gray70,white}",
+	  .default_str = "##6c7086",
 	  .text = "Dark theme colour for light grey."
 	},
 
@@ -682,7 +683,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},gray15,black}",
+	  .default_str = "##313244",
 	  .text = "Dark theme colour for dark grey."
 	},
 
@@ -690,7 +691,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},yellowgreen,green}",
+	  .default_str = "##a6e3a1",
 	  .text = "Dark theme colour for green."
 	},
 
@@ -698,7 +699,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},darkgoldenrod,yellow}",
+	  .default_str = "##f9e2af",
 	  .text = "Dark theme colour for yellow."
 	},
 
@@ -706,7 +707,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},indianred,red}",
+	  .default_str = "##f38ba8",
 	  .text = "Dark theme colour for red."
 	},
 
@@ -714,7 +715,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},skyblue3,blue}",
+	  .default_str = "##89b4fa",
 	  .text = "Dark theme colour for blue."
 	},
 
@@ -722,7 +723,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},cadetblue,cyan}",
+	  .default_str = "##94e2d5",
 	  .text = "Dark theme colour for cyan."
 	},
 
@@ -730,7 +731,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},mediumpurple,magenta}",
+	  .default_str = "##cba6f7",
 	  .text = "Dark theme colour for magenta."
 	},
 
@@ -738,7 +739,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},gray95,black}",
+	  .default_str = "##11111b",
 	  .text = "Light theme colour for black."
 	},
 
@@ -746,7 +747,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},gray10,white}",
+	  .default_str = "##cdd6f4",
 	  .text = "Light theme colour for white."
 	},
 
@@ -754,7 +755,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},gray80,white}",
+	  .default_str = "##6c7086",
 	  .text = "Light theme colour for light grey."
 	},
 
@@ -762,7 +763,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},gray45,black}",
+	  .default_str = "##313244",
 	  .text = "Light theme colour for dark grey."
 	},
 
@@ -770,7 +771,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},seagreen,green}",
+	  .default_str = "##a6e3a1",
 	  .text = "Light theme colour for green."
 	},
 
@@ -778,7 +779,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},darkgoldenrod,yellow}",
+	  .default_str = "##f9e2af",
 	  .text = "Light theme colour for yellow."
 	},
 
@@ -786,7 +787,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},indianred4,red}",
+	  .default_str = "##f38ba8",
 	  .text = "Light theme colour for red."
 	},
 
@@ -794,7 +795,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},steelblue,blue}",
+	  .default_str = "##89b4fa",
 	  .text = "Light theme colour for blue."
 	},
 
@@ -802,7 +803,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},darkcyan,cyan}",
+	  .default_str = "##94e2d5",
 	  .text = "Light theme colour for cyan."
 	},
 
@@ -810,7 +811,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SERVER,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "#{?#{e|>=:#{client_colours},256},purple4,magenta}",
+	  .default_str = "##cba6f7",
 	  .text = "Light theme colour for magenta."
 	},
 
@@ -867,7 +868,7 @@ const struct options_table_entry options_table[] = {
 	  .scope = OPTIONS_TABLE_SESSION,
 	  .minimum = 0,
 	  .maximum = INT_MAX,
-	  .default_num = 0,
+	  .default_num = 1,
 	  .text = "Default index of the first window in each session."
 	},
 
@@ -925,7 +926,7 @@ const struct options_table_entry options_table[] = {
 	  .scope = OPTIONS_TABLE_SESSION,
 	  .minimum = 0,
 	  .maximum = INT_MAX,
-	  .default_num = 750,
+	  .default_num = 2000,
 	  .unit = "milliseconds",
 	  .text = "Time for which status line messages should appear."
 	},
@@ -942,7 +943,7 @@ const struct options_table_entry options_table[] = {
 	  .scope = OPTIONS_TABLE_SESSION,
 	  .minimum = 0,
 	  .maximum = INT_MAX,
-	  .default_num = 2000,
+	  .default_num = 50000,
 	  .unit = "lines",
 	  .text = "Maximum number of lines to keep in the history for each "
 		  "pane. "
@@ -989,9 +990,9 @@ const struct options_table_entry options_table[] = {
 	{ .name = "message-command-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SESSION,
-	  .default_str = "bg=themeblack,fg=themeyellow,"
+	  .default_str = "bg=##313244,fg=##cba6f7,"
 			 "#{?#{m/r:(^|#,)IS(PANE|MODE)($|#,),#{prompt_flags}},,"
-			 "fill=themeblack}",
+			 "fill=##313244}",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of the command prompt when in command mode, if "
@@ -1020,9 +1021,9 @@ const struct options_table_entry options_table[] = {
 	{ .name = "message-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SESSION,
-	  .default_str = "bg=themeyellow,fg=themeblack,"
+	  .default_str = "bg=##313244,fg=##94e2d5,"
 			 "#{?#{m/r:(^|#,)IS(PANE|MODE)($|#,),#{prompt_flags}},,"
-			 "fill=themeyellow}",
+			 "fill=##313244}",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of messages and the command prompt. "
@@ -1043,7 +1044,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "prefix",
 	  .type = OPTIONS_TABLE_KEY,
 	  .scope = OPTIONS_TABLE_SESSION,
-	  .default_num = 'b'|KEYC_CTRL,
+	  .default_num = ' '|KEYC_CTRL,
 	  .text = "The prefix key."
 	},
 
@@ -1057,7 +1058,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "renumber-windows",
 	  .type = OPTIONS_TABLE_FLAG,
 	  .scope = OPTIONS_TABLE_SESSION,
-	  .default_num = 0,
+	  .default_num = 1,
 	  .text = "Whether windows are automatically renumbered rather than "
 		  "leaving gaps."
 	},
@@ -1187,14 +1188,14 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_CHOICE,
 	  .scope = OPTIONS_TABLE_SESSION,
 	  .choices = options_table_status_keys_list,
-	  .default_num = MODEKEY_EMACS,
+	  .default_num = MODEKEY_VI,
 	  .text = "Key set to use at the command prompt."
 	},
 
 	{ .name = "status-left",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SESSION,
-	  .default_str = "[#{session_name}] ",
+	  .default_str = "",
 	  .text = "Contents of the left side of the status line."
 	},
 
@@ -1203,7 +1204,7 @@ const struct options_table_entry options_table[] = {
 	  .scope = OPTIONS_TABLE_SESSION,
 	  .minimum = 0,
 	  .maximum = SHRT_MAX,
-	  .default_num = 10,
+	  .default_num = 100,
 	  .text = "Maximum width of the left side of the status line."
 	},
 
@@ -1227,9 +1228,12 @@ const struct options_table_entry options_table[] = {
 	{ .name = "status-right",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SESSION,
-	  .default_str = "#{?window_bigger,"
-			 "[#{window_offset_x}#,#{window_offset_y}] ,}"
-			 "\"#{=21:pane_title}\" %H:%M %d-%b-%y",
+	  .default_str = "#[bg=#{?client_prefix,##f38ba8,##a6e3a1}]#[fg=#11111b] S "
+			 "#[bg=#313244]#[fg=#cdd6f4] #S "
+			 "#[bg=#89b4fa]#[fg=#11111b] H "
+			 "#[bg=#313244]#[fg=#cdd6f4] #h "
+			 "#[bg=#b4befe]#[fg=#11111b] T "
+			 "#[bg=#313244]#[fg=#cdd6f4] %H:%M #[default]",
 	  .text = "Contents of the right side of the status line."
 
 	},
@@ -1239,7 +1243,7 @@ const struct options_table_entry options_table[] = {
 	  .scope = OPTIONS_TABLE_SESSION,
 	  .minimum = 0,
 	  .maximum = SHRT_MAX,
-	  .default_num = 40,
+	  .default_num = 100,
 	  .text = "Maximum width of the right side of the status line."
 	},
 
@@ -1255,7 +1259,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "status-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_SESSION,
-	  .default_str = "bg=themegreen,fg=themeblack",
+	  .default_str = "bg=#1e1e2e,fg=#cdd6f4",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of the status line."
@@ -1449,7 +1453,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "themeblue",
+	  .default_str = "#89b4fa",
 	  .text = "Colour of the clock in clock mode."
 	},
 
@@ -1465,14 +1469,14 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "themered",
+	  .default_str = "#89b4fa",
 	  .text = "Colour of the active pane for 'display-panes'."
 	},
 
 	{ .name = "display-panes-border-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "bg=themedarkgrey,fg=themelightgrey",
+	  .default_str = "bg=#1e1e2e,fg=#cba6f7",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of the pane borders in 'display-panes'."
@@ -1482,7 +1486,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .flags = OPTIONS_TABLE_IS_COLOUR,
-	  .default_str = "themeblue",
+	  .default_str = "#6c7086",
 	  .text = "Colour of not active panes for 'display-panes'."
 	},
 
@@ -1508,7 +1512,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "copy-mode-match-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "bg=themecyan,fg=themeblack",
+	  .default_str = "bg=#f9e2af,fg=#11111b",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of search matches in copy mode."
@@ -1517,7 +1521,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "copy-mode-current-match-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "bg=thememagenta,fg=themeblack",
+	  .default_str = "bg=#fab387,fg=#11111b",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of the current search match in copy mode."
@@ -1526,7 +1530,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "copy-mode-mark-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "bg=themeyellow,fg=themeblack",
+	  .default_str = "bg=#cba6f7,fg=#11111b",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of the marked line in copy mode."
@@ -1635,7 +1639,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_CHOICE,
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .choices = options_table_mode_keys_list,
-	  .default_num = MODEKEY_EMACS,
+	  .default_num = MODEKEY_VI,
 	  .text = "Key set used in copy mode."
 	},
 
@@ -1643,7 +1647,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .flags = OPTIONS_TABLE_IS_STYLE,
-	  .default_str = "noattr,bg=themeyellow,fg=themeblack",
+	  .default_str = "noattr,bg=#45475a,fg=#cdd6f4,bold",
 	  .separator = ",",
 	  .text = "Style of indicators and highlighting in modes."
 	},
@@ -1692,10 +1696,10 @@ const struct options_table_entry options_table[] = {
 	{ .name = "pane-active-border-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW|OPTIONS_TABLE_PANE,
-	  .default_str = "fg=#{?pane_modal_flag,themeblue,"
-			 "#{?pane_marked,thememagenta,"
-			 "#{?synchronize-panes,themered,"
-			 "#{?pane_in_mode,themeyellow,themegreen}}}}",
+	  .default_str = "fg=#{?pane_modal_flag,##cba6f7,"
+			 "#{?pane_marked,##f5c2e7,"
+			 "#{?synchronize-panes,##f38ba8,"
+			 "#{?pane_in_mode,##f9e2af,##b4befe}}}}",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of the active pane border."
@@ -1706,7 +1710,7 @@ const struct options_table_entry options_table[] = {
 	  .scope = OPTIONS_TABLE_WINDOW,
 	  .minimum = 0,
 	  .maximum = USHRT_MAX,
-	  .default_num = 0,
+	  .default_num = 1,
 	  .text = "Index of the first pane in each window."
 	},
 
@@ -1741,7 +1745,7 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_CHOICE,
 	  .scope = OPTIONS_TABLE_WINDOW|OPTIONS_TABLE_PANE,
 	  .choices = options_table_pane_border_lines_list,
-	  .default_num = PANE_LINES_SINGLE,
+	  .default_num = PANE_LINES_ROUNDED,
 	  .text = "Type of characters used to draw pane border lines. Some of "
 		  "these are only supported on terminals with UTF-8 support."
 	},
@@ -1757,7 +1761,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "pane-border-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW|OPTIONS_TABLE_PANE,
-	  .default_str = "fg=themelightgrey",
+	  .default_str = "fg=#313244",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of the pane status lines."
@@ -1971,7 +1975,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "window-status-activity-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "reverse",
+	  .default_str = "default",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of windows in the status line with an activity alert."
@@ -1980,7 +1984,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "window-status-bell-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "reverse",
+	  .default_str = "default",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of windows in the status line with a bell alert."
@@ -1989,14 +1993,16 @@ const struct options_table_entry options_table[] = {
 	{ .name = "window-status-current-format",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "#I:#W#{?window_flags,#{window_flags}, }",
+	  .default_str = "#[bg=#cba6f7]#[fg=#11111b] #I "
+			 "#[bg=#45475a]#[fg=#cdd6f4,bold] #W#{?window_zoomed_flag, Z,} "
+			 "#[default] ",
 	  .text = "Format of the current window in the status line."
 	},
 
 	{ .name = "window-status-current-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "underscore",
+	  .default_str = "default",
 	  .flags = OPTIONS_TABLE_IS_STYLE,
 	  .separator = ",",
 	  .text = "Style of the current window in the status line."
@@ -2005,7 +2011,9 @@ const struct options_table_entry options_table[] = {
 	{ .name = "window-status-format",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = "#I:#W#{?window_flags,#{window_flags}, }",
+	  .default_str = "#[bg=#9399b2]#[fg=#11111b] #I "
+			 "#[bg=#313244]#[fg=#cdd6f4] #W#{?window_zoomed_flag, Z,} "
+			 "#[default] ",
 	  .text = "Format of windows in the status line, except the current "
 		  "window."
 	},
@@ -2022,7 +2030,7 @@ const struct options_table_entry options_table[] = {
 	{ .name = "window-status-separator",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW,
-	  .default_str = " ",
+	  .default_str = "",
 	  .text = "Separator between windows in the status line."
 	},
 

@@ -11,7 +11,7 @@ dist_EXTRA_tmux_SOURCES = compat/*.[ch]
 # Preprocessor flags.
 AM_CPPFLAGS += @XOPEN_DEFINES@ \
 	-DTMUX_VERSION='"@VERSION@"' \
-	-DTMUX_CONF='"$(sysconfdir)/tmux.conf:~/.tmux.conf:$$XDG_CONFIG_HOME/tmux/tmux.conf:~/.config/tmux/tmux.conf"' \
+	-DTMUX_CONF='"$(sysconfdir)/tmux-duk.conf:$$XDG_CONFIG_HOME/tmux-duk/tmux.conf:~/.config/tmux-duk/tmux.conf"' \
 	-DTMUX_LOCK_CMD='"@DEFAULT_LOCK_CMD@"' \
 	-DTMUX_TERM='"@DEFAULT_TERM@"' \
 	-DTMUX_MOUSE=1
@@ -303,8 +303,8 @@ install-exec-hook:
 	fi
 	$(mkdir_p) $(DESTDIR)$(mandir)/man1
 	$(INSTALL_DATA) $(srcdir)/tmux.1.@MANFORMAT@ \
-		$(DESTDIR)$(mandir)/man1/tmux.1
+		$(DESTDIR)$(mandir)/man1/`echo tmux | sed '$(transform)'`.1
 
 # And uninstall it.
 uninstall-hook:
-	rm -f $(DESTDIR)$(mandir)/man1/tmux.1
+	rm -f $(DESTDIR)$(mandir)/man1/`echo tmux | sed '$(transform)'`.1

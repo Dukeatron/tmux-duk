@@ -266,7 +266,7 @@ make_label(const char *label, char **cause)
 		return (NULL);
 	}
 
-	xasprintf(&base, "%s/tmux-%ld", path, (long)uid);
+	xasprintf(&base, "%s/tmux-duk-%ld", path, (long)uid);
 	free(path);
 	if (mkdir(base, S_IRWXU) != 0 && errno != EEXIST) {
 		xasprintf(cause, "couldn't create directory %s (%s)", base,

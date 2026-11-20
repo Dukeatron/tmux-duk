@@ -24,6 +24,30 @@
 
 #include "tmux.h"
 
+#define DEFAULT_CHEATSHEET \
+	" -E -b rounded -w 50 -h 21 -s 'bg=#1e1e2e,fg=#cdd6f4' -S 'fg=#cba6f7'" \
+	" sh -c '" \
+	"k=\"\\033[1;38;2;203;166;247m\"; d=\"\\033[0;38;2;205;214;244m\";" \
+	" t=\"\\033[1;38;2;137;180;250m\"; m=\"\\033[0;38;2;108;112;134m\";" \
+	" b=\"\\033[48;2;30;30;46m\"; printf \"${b}\\033[2J\\033[H\\033[?25l\";" \
+	" h(){ printf \"\\n  ${t}%s${d}\\n\" \"$1\"; };" \
+	" r(){ printf \"    ${k}%-11s${d}%s\\n\" \"$1\" \"$2\"; };" \
+	" printf \"  ${k}tmux-duk${m}  prefix = Ctrl-Space${d}\\n\";" \
+	" h PANES; r \"| -\" \"split side / below\";" \
+	" r \"h j k l\" \"move between panes\";" \
+	" r \"H J K L\" \"resize pane\";" \
+	" r \"z  x\" \"zoom / close pane\";" \
+	" h WINDOWS; r c \"new window\";" \
+	" r \"n p 1-9\" \"next / prev / jump to\";" \
+	" r \",  X\" \"rename / close window\";" \
+	" h MISC; r \"s  d\" \"sessions / detach\";" \
+	" r \"v  y\" \"copy mode / yank\";" \
+	" r \"r  /\" \"reload config / all keys\";" \
+	" printf \"\\n  ${m}no prefix: Alt-hjkl panes, Alt-1..9 windows${d}\";" \
+	" stty -echo -icanon min 0 time 45 2>/dev/null;" \
+	" dd bs=1 count=1 >/dev/null 2>&1" \
+	"'"
+
 #define DEFAULT_SESSION_MENU \
 	" #{S/t:#{?#{&&:#{<:#{loop_index},6},#{!:#{session_active}}},'Switch To #[underscore]#{session_name}' '' {switch-client -t=#{session_id}#} ,}}" \
 	" ''" \
@@ -384,7 +408,7 @@ key_bindings_init(void)
 {
 	static const char *const defaults[] = {
 		/* Prefix keys. */
-		"bind -N 'Send the prefix key' C-b { send-prefix }",
+		"bind -N 'Send the prefix key' C-Space { send-prefix }",
 		"bind -N 'Rotate through the panes' C-o { rotate-window }",
 		"bind -N 'Suspend the current client' C-z { suspend-client }",
 		"bind -N 'Select next layout' Space { next-layout }",
@@ -750,6 +774,44 @@ key_bindings_init(void)
 		"bind -Tcopy-mode-vi M-x { send -X jump-to-mark }",
 		"bind -Tcopy-mode-vi C-Up { send -X scroll-up }",
 		"bind -Tcopy-mode-vi C-Down { send -X scroll-down }",
+
+		/* tmux-duk: simpler, vim-style keys (override the stock ones). */
+		"bind -N 'Show the key cheatsheet' ? { display-popup" DEFAULT_CHEATSHEET " }",
+		"bind -N 'List all key bindings' / { list-keys -N }",
+		"bind -N 'Split window side by side' | { split-window -h -c '#{pane_current_path}' }",
+		"bind -N 'Split window side by side' '\\' { split-window -h -c '#{pane_current_path}' }",
+		"bind -N 'Split window top and bottom' - { split-window -v -c '#{pane_current_path}' }",
+		"bind -N 'Split window top and bottom' _ { split-window -v -c '#{pane_current_path}' }",
+		"bind -N 'Create a new window' c { new-window -c '#{pane_current_path}' }",
+		"bind -N 'Select the pane to the left' h { select-pane -L }",
+		"bind -N 'Select the pane below' j { select-pane -D }",
+		"bind -N 'Select the pane above' k { select-pane -U }",
+		"bind -N 'Select the pane to the right' l { select-pane -R }",
+		"bind -N 'Resize the pane left by 5' -r H { resize-pane -L 5 }",
+		"bind -N 'Resize the pane down by 5' -r J { resize-pane -D 5 }",
+		"bind -N 'Resize the pane up by 5' -r K { resize-pane -U 5 }",
+		"bind -N 'Resize the pane right by 5' -r L { resize-pane -R 5 }",
+		"bind -N 'Kill the current window' X { confirm-before -p\"kill-window #W? (y/n)\" kill-window }",
+		"bind -N 'Select the next window' Tab { next-window }",
+		"bind -N 'Select the previous window' BTab { previous-window }",
+		"bind -N 'Enter copy mode' v { copy-mode }",
+		"bind -N 'Reload the configuration file' r { source-file -q ~/.config/tmux-duk/tmux.conf; display-message 'tmux-duk: config reloaded' }",
+		"bind -n M-h { select-pane -L }",
+		"bind -n M-j { select-pane -D }",
+		"bind -n M-k { select-pane -U }",
+		"bind -n M-l { select-pane -R }",
+		"bind -n M-1 { select-window -t:=1 }",
+		"bind -n M-2 { select-window -t:=2 }",
+		"bind -n M-3 { select-window -t:=3 }",
+		"bind -n M-4 { select-window -t:=4 }",
+		"bind -n M-5 { select-window -t:=5 }",
+		"bind -n M-6 { select-window -t:=6 }",
+		"bind -n M-7 { select-window -t:=7 }",
+		"bind -n M-8 { select-window -t:=8 }",
+		"bind -n M-9 { select-window -t:=9 }",
+		"bind -Tcopy-mode-vi v { send -X begin-selection }",
+		"bind -Tcopy-mode-vi C-v { send -X rectangle-toggle }",
+		"bind -Tcopy-mode-vi y { send -X copy-pipe-and-cancel }",
 	};
 	u_int			 i;
 	struct cmd_parse_result	*pr;

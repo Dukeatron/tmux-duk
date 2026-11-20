@@ -434,8 +434,6 @@ cmd_display_popup_get_lines(const char *value, char **cause)
 
 	if (value == NULL)
 		value = "single";
-	else if (strcmp(value, "rounded") == 0)
-		value = "single";
 	else if (strcmp(value, "padded") == 0)
 		value = "spaces";
 

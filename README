@@ -1,3 +1,36 @@
+* tmux-duk
+
+This is tmux-duk, a custom flavour of tmux that works out of the box:
+
+- Catppuccin Mocha theme applied to everything (status line, borders, menus,
+  popups, copy mode, choose-tree, messages, clock); plain ASCII, no Nerd Font
+  needed. True colour is used where the terminal supports it.
+- Mouse on, vi keys in copy mode and the command prompt, windows and panes
+  numbered from 1, 50000 lines of history.
+- Prefix is Ctrl-Space. Press prefix then ? for a cheatsheet that closes by
+  itself after 4.5 seconds (or on any key).
+
+	prefix |  -     split side by side / top and bottom
+	prefix h j k l  move between panes     prefix H J K L  resize
+	prefix c        new window             prefix n p 1-9  switch window
+	prefix z x X    zoom / kill pane / kill window
+	prefix v        copy mode (v select, y copy, C-v rectangle)
+	prefix s d      sessions / detach      prefix r        reload config
+	Alt-h/j/k/l     move between panes without the prefix
+	Alt-1..9        switch window without the prefix
+
+tmux-duk is installed as tmux-duk, so it can sit next to a stock tmux. It uses
+its own socket directory (tmux-duk-UID) and its own configuration file,
+~/.config/tmux-duk/tmux.conf; ~/.tmux.conf is not read.
+
+Build and install on macOS:
+
+	$ brew install autoconf automake pkg-config libevent utf8proc jemalloc
+	$ sh autogen.sh
+	$ ./configure --enable-utf8proc --enable-jemalloc \
+	      --program-transform-name='s/^tmux$/tmux-duk/'
+	$ make && sudo make install
+
 Welcome to tmux!
 
 tmux is a terminal multiplexer: it enables a number of terminals to be created,
